@@ -10,7 +10,7 @@ namespace Rocky.Models
 		public int CategoryId { get; set; }
 		public string Name { get; set; }
 		public int DisplayOrder { get; set; }
-
+		public int MyProperty { get; set; }
 
 	}
 }
