@@ -15,5 +15,6 @@ namespace Rocky.Data
 		}
 
 		public DbSet<Category> Categories { get; set; }
+		public DbSet<FirtsWork> FirtsWorks { get; set; }
 	}
 }
