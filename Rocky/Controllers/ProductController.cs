@@ -71,12 +71,11 @@ namespace Rocky.Controllers
         // POST - UPSERT
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Category obj)
+        public IActionResult Upsert(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             return View(obj);
