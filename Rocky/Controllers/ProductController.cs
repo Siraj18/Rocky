@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Rocky.Data;
@@ -12,10 +14,12 @@ namespace Rocky.Controllers
 {
     public class ProductController : Controller
     {
+        private IWebHostEnvironment _webHostEnvironment;
         private readonly ApplicationDbContext _db;
-        public ProductController(ApplicationDbContext db)
+        public ProductController(ApplicationDbContext db, IWebHostEnvironment webHostEnvironment)
         {
             _db = db;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -75,10 +79,35 @@ namespace Rocky.Controllers
         {
             if (ModelState.IsValid)
             {
+                var files = HttpContext.Request.Form.Files;
                 
+                string webRootPath = _webHostEnvironment.WebRootPath;
+                
+                if(productVM.Product.Id == 0)
+                {
+                    // creating
+                    string upload = webRootPath + WC.ImagePath;
+                    string fileName = Guid.NewGuid().ToString();
+                    string extension = Path.GetExtension(files[0].FileName);
+
+                    using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+                    {
+                        files[0].CopyTo(fileStream);
+                    }
+
+                    productVM.Product.Image = fileName + extension;
+                    _db.Products.Add(productVM.Product);
+                    
+
+                }
+                else
+                {
+                    // updating
+                }
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            return View();
             
         }
 
