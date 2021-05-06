@@ -152,12 +152,25 @@ namespace Rocky.Controllers
         public IActionResult Delete(int? id)
         {
             
-            var obj = _db.Categories.Find(id);
+            var obj = _db.Products.Find(id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _db.Categories.Remove(obj);
+
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string upload = webRootPath + WC.ImagePath;
+            
+       
+
+            var oldFile = Path.Combine(upload, obj.Image);
+
+            if (System.IO.File.Exists(oldFile))
+            {
+                System.IO.File.Delete(oldFile);
+            }
+
+            _db.Products.Remove(obj);
 
             _db.SaveChanges();
             return RedirectToAction("Index");
