@@ -24,12 +24,9 @@ namespace Rocky.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Product> objList = _db.Products;
+            IEnumerable<Product> objList = _db.Products.Include(u => u.Category).Include(u => u.FirtsWork);
 
-            foreach(var obj in objList)
-            {
-                obj.Category = _db.Categories.FirstOrDefault(u => u.CategoryId == obj.CategoryId);
-            }
+            
 
             return View(objList);
         }
@@ -52,7 +49,13 @@ namespace Rocky.Controllers
                 {
                     Text = i.Name,
                     Value = i.CategoryId.ToString()
-                })
+                }),
+                WorkSelectList = _db.FirtsWorks.Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                }),
+
 
             };
            
@@ -142,6 +145,11 @@ namespace Rocky.Controllers
             {
                 Text = i.Name,
                 Value = i.CategoryId.ToString()
+            });
+            productVM.WorkSelectList = _db.FirtsWorks.Select(i => new SelectListItem
+            {
+                Text = i.Name,
+                Value = i.Id.ToString()
             });
             return View(productVM);
             

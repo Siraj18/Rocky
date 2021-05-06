@@ -12,6 +12,7 @@ namespace Rocky.Models
 		public int Id { get; set; }
 		[Required]
 		public string Name { get; set; }
+		public string ShortDesc { get; set; }
 		public string Description { get; set; }
 		[Range(1, int.MaxValue)]
 		public Double Price { get; set; }
@@ -21,5 +22,9 @@ namespace Rocky.Models
 		[ForeignKey("CategoryId")]
 
 		public virtual Category Category { get; set; }
+
+		public int WorkId { get; set; }
+		[ForeignKey("WorkId")]
+		public virtual FirtsWork FirtsWork { get; set; }
 	}
 }

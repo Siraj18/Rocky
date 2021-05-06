@@ -41,10 +41,20 @@
 				</div>
 				<div class="form-group row">
 					<div class="col-4">
+						<label asp-for="Product.ShortDesc">Short Description</label>
+					</div>
+					<div class="col-8">
+						<input asp-for="Product.ShortDesc" class="form-control" />
+						<span asp-validation-for="Product.ShortDesc" class="text-danger"></span>
+					</div>
+
+				</div>
+				<div class="form-group row">
+					<div class="col-4">
 						<label asp-for="Product.Description">Description</label>
 					</div>
 					<div class="col-8">
-						<textarea asp-for="Product.Description" class="form-control summernote" ></textarea>
+						<textarea asp-for="Product.Description" class="form-control summernote"></textarea>
 						<span asp-validation-for="Product.Description" class="text-danger"></span>
 					</div>
 
@@ -68,6 +78,18 @@
 							<option disabled selected>--Select Category--</option>
 						</select>
 						<span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+					</div>
+
+				</div>
+				<div class="form-group row">
+					<div class="col-4">
+						<label asp-for="Product.WorkId"></label>
+					</div>
+					<div class="col-8">
+						<select asp-for="Product.WorkId" asp-items="@Model.WorkSelectList" class="form-control">
+							<option disabled selected>--Select Work--</option>
+						</select>
+						<span asp-validation-for="Product.WorkId" class="text-danger"></span>
 					</div>
 
 				</div>

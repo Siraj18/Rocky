@@ -34,7 +34,13 @@
 					Price
 				</th>
 				<th>
-
+					Category
+				</th>
+				<th>
+					Work
+				</th>
+				<th>
+					
 				</th>
 
 			</tr>
@@ -44,7 +50,9 @@
 			{
 				<tr>
 					<td width="50%">@obj.Name</td>
-					<td width="30%">@obj.Price</td>
+					<td width="10%">@obj.Price</td>
+					<td width="10%">@obj.Category.Name</td>
+					<td width="10%">@obj.FirtsWork.Name</td>
 					<td class="text-center">
 						<div class="w-75 btn-group" role="group">
 							<a asp-route-Id="@obj.Id" asp-action="Upsert" class="btn btn-primary">
