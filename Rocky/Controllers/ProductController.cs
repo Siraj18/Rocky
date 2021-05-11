@@ -137,6 +137,7 @@ namespace Rocky.Controllers
                         productVM.Product.Image = objFromDb.Image;
                     }
                     _db.Products.Update(productVM.Product);
+                    
                 }
                 _db.SaveChanges();
                 return RedirectToAction("Index");
