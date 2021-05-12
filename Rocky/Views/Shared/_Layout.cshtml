@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@using Rocky.Utility; 
+@inject IHttpContextAccessor HttpContextAccessor;
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -31,6 +34,24 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Product</a>
+						</li>
+						<li>
+							@if(HttpContextAccessor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart) != null)
+							{
+								<a asp-action="Index" asp-controller="Cart" class="nav-link">
+									@{ 
+										var count = HttpContextAccessor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart).Count();
+									}
+									<i class="fas fa-shopping-cart"></i> (@count)
+								</a>
+
+										}
+										else
+										{
+											<a href="#" class="nav-link">
+												<i class="fas fa-shopping-cart"></i> (0)
+											</a>
+										}
 						</li>
 
 					</ul>
